@@ -1,0 +1,27 @@
+{
+  "name": "plan-to-image",
+  "version": "1.0.0",
+  "description": "Export images",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "export",
+    "images",
+    "to",
+    "png",
+    "or",
+    "gif",
+    "and",
+    "others"
+  ],
+  "author": "shizhenzhen",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jquery": "^2.0.41",
+    "@types/vue":"^1.0.0",
+    "jquery":"",
+    "vue":"^1.0.0"
+  }
+}
