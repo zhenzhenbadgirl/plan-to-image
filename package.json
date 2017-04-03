@@ -20,8 +20,11 @@
   "license": "ISC",
   "devDependencies": {
     "@types/jquery": "^2.0.41",
-    "@types/vue":"^1.0.0",
-    "jquery":"",
-    "vue":"^1.0.0"
+    "@types/vue": "^1.0.0",
+    "jquery": "",
+    "vue": "^1.0.0"
+  },
+  "dependencies": {
+    "sweetalert": "^1.1.3"
   }
 }

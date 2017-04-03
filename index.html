@@ -8,33 +8,64 @@
     <title>一键导出计划</title>
     <link rel="stylesheet" href="files/normalize.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/dist/sweetalert.css">
 </head>
 
 <body>
-    <div class="export-area">
-        <table border="1" cellpadding="5">
-            <thead>
-                <tr bgcolor="blue">
-                    <th><input type="text" value="动作"></th>
-                    <th><input type="text" value="组数"></th>
-                    <th><input type="text" value="时间"></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-                </tr>
-                <tr>
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-                    <td><input type="text" value=""></td>
-                </tr>
-            </tbody>
-
-        </table>
+    <div class="wrapper">
+        <div class="edit-content">
+            <button v-on:click="addAction">增加动作</button><br/>
+            <button v-on:click="addDescribeRows">加行描述</button><br/>
+            <button v-on:click="cutDescribeRows">减行描述</button><br/>
+            <button v-on:click="addCautionRows">加行注意</button><br/>
+            <button v-on:click="cutCautionRows">减行注意</button><br/>
+            <button v-on:click="showWatermake">显示水印</button><br/>
+            <button v-on:click="exportImgToPng">导出图片</button><br/>
+        </div>
+        <div class="view-content">
+            <div class="export-area">
+                <div class="watermark"></div>
+                <table border="1">
+                    <tr class="table-title">
+                        <td colspan="4"><input type="text" placeholder="请输入计划名称" value="居家腹肌养成计划"></td>
+                    </tr>
+                    <tr class="plan-describe">
+                        <td colspan="4"><textarea rows="{{describeRows}}" type="text" placeholder="请输入计划描述">3个腹肌动作+HIIT，塑形又减脂，轻松在家练腹肌</textarea></td>
+                    </tr>
+                    <tr bgcolor="blue" class="table-head" cellpadding="5">
+                        <th width="40%"><input type="text" value="动 作"></th>
+                        <th width="30%" colspan="2"><input type="text" value="次数/时间" ></th>
+                        <th width="30%"><input type="text" value="组 数"></th>
+                    </tr>
+                    <tr class="table-body" v-for="(index, item) in actionData">
+                        <td><input type="text" placeholder="请输入动作名称" v-model="item.Name"></td>
+                        <td width="15%"><input type="text" placeholder="请输入次数/时间" v-model="item.Intensity"></td>
+                        <td width="15%"><input type="text" class="unit" v-model="item.Unit"></td>
+                        <td><input type="text" placeholder="请输入组数" v-model="item.Circulation"></td>
+                    </tr>
+                    <tr class="table-foot">
+                        <td colspan="4"><textarea rows="{{cautionRows}}" type="text" placeholder="请输入注意事项">* 动作过程中注意念动一致，感受目标肌群的发力；</textarea></td>
+                    </tr>
+                </table>
+                <div class="qr-content">
+                    <img src="" alt="点击上传二维码">
+                    <div class="welcome-text">
+                        <p> ‹<span>扫描</span>› 或 ‹<span>长按</span>› 识别二维码</p>
+                        <p>打开计划并下载硬派健身APP</p>
+                        <p>APP内扫描二维码</p>
+                        <p>即刻开启 ‹<span>居家腹肌养成计划</span>› </p>
+                    </div>
+                </div>
+            </div>
+            <img src="images/example.png" alt="example" width="640" style="margin-top: 20px;">
+        </div>
     </div>
+    <!--引入必须的js-->
+    <script src="node_modules\sweetalert\dist\sweetalert.min.js"></script>
+    <script src="node_modules\jquery\dist\jquery.min.js"></script>
+    <script src="node_modules\vue\dist\vue.min.js"></script>
+    
+    <!--引入自己的js-->
+    <script src="index.js"></script>
 </body>
-
 </html>
