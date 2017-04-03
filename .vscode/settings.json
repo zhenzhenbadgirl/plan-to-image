@@ -1,0 +1,20 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "files.exclude": {
+        "**/*.css": {
+             "when": "$(basename).scss"
+         },
+         "**/*.js": {
+             "when": "$(basename).ts"
+         },
+        "**/**.js": {
+            "when": "$(basename).tsx"
+        },
+        "**/**.js": {
+            "when": "$(basename).tsx"
+        }
+    },
+    "search.exclude": {
+    "**/node_modules": true
+  }
+}

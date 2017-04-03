@@ -1,0 +1,22 @@
+.export-area{
+    width: 1080px;
+    margin: 30px auto;
+    background: #eee;
+    padding:15px;
+}
+
+table{
+    border-collapse : collapse;     //去除重复边框
+    margin: 0 auto;
+}
+
+input{
+    outline: none;
+    border: none;
+}
+
+th input{
+    background-color: blue;
+    color: white;
+    text-align: center;
+}
