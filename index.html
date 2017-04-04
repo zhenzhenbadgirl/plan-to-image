@@ -20,13 +20,14 @@
             <button v-on:click="addCautionRows">加行注意</button><br/>
             <button v-on:click="cutCautionRows">减行注意</button><br/>
             <button v-on:click="showWatermake">显示水印</button><br/>
-            <button v-on:click="exportImgToPng"><a href="" id="down_button">导出图片</a></button>
+            <input type="file" v-on:change="showQRCode(event)" id="onload-btn"><br/>
+            <button v-on:click="exportImgToPng"><a id="down_button">导出图片</a></button>
         </div>
         <div class="view-content">
             <!--<canvas id="getit">-->
             <div class="export-area" id="canv">
                 <div class="watermark"></div>
-                <table border="1" id="table">
+                <table border="1">
                     <tr class="table-title">
                         <td colspan="4"><input type="text" placeholder="请输入计划名称" value="居家腹肌养成计划"></td>
                     </tr>
@@ -49,7 +50,7 @@
                     </tr>
                 </table>
                 <div class="qr-content">
-                    <img src="" alt="点击上传二维码">
+                    <img src="" alt="点击上传二维码" id="QR">
                     <div class="welcome-text">
                         <p> ‹<span>扫描</span>› 或 ‹<span>长按</span>› 识别二维码</p>
                         <p>打开计划并下载硬派健身APP</p>
@@ -67,49 +68,28 @@
 <script src="node_modules\jquery\dist\jquery.min.js"></script>
 <script src="node_modules\vue\dist\vue.min.js"></script>
 <script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
-<!--<script src="files\html2canvas.js"></script>
-<script src="files\jquery.base64.js"></script>
-<script src="files\tableExport.js"></script>-->
+
 <!--引入自己的js-->
 <script src="index.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $("#down_button").on("click", function (event) {
-            event.preventDefault();
-            html2canvas($("#canv"), {
-                allowTaint: true,
-                taintTest: false,
-                onrendered: function (canvas) {
-                    //这里的canvas就是页面中生成的<canvas>元素
-                    //生成base64图片数据  
-                    var dataUrl = canvas.toDataURL();
+    //上传二维码方法1：
+    // $('#onload-btn').change(function () {
+    //     var imgFile = this.files[0];
+    //     var fr = new FileReader();
+    //     fr.onload = function () {
+    //         $('#QR').attr("src", fr.result);
+    //     };
+    //     fr.readAsDataURL(imgFile);
+    // });
 
-                    var saveFile = function (data, filename) {
-                        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
-                        save_link.href = data;
-                        save_link.download = filename;
-
-                        var event = document.createEvent('MouseEvents');
-                        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
-                        save_link.dispatchEvent(event);
-                    };
-                    var filename = 'plan_' + Now() + '.' + 'png';
-                    // download
-                    saveFile(dataUrl, filename);
-                }
-            });
-        });
-        let Now = function () {
-            var myDate = new Date();
-            let year = myDate.getFullYear();
-            let month = myDate.getMonth() + 1;
-            let date = myDate.getDate();
-            let now = year + "" + month + "" + date;
-            return now;
-        }
-    }); 
+    //上传二维码方法2：
+    $('#onload-btn').change(function () {
+        var src = window.URL.createObjectURL(this.files[0])//这里传一个文件对象 例如：file.files[0]
+        $('#QR').attr("src", src);
+    });
 </script>
+
 </body>
 
 </html>

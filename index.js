@@ -67,6 +67,33 @@ var table = new Vue({
             $(".watermark").toggle();
         },
         exportImgToPng: function () {
+            html2canvas($("#canv"), {
+                allowTaint: true,
+                taintTest: false,
+                onrendered: function (canvas) {
+                    var dataUrl = canvas.toDataURL();
+                    var saveFile = function (data, filename) {
+                        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                        $(save_link).attr("href", data);
+                        $(save_link).attr("download", filename);
+                        var event = document.createEvent('MouseEvents');
+                        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                        save_link.dispatchEvent(event);
+                    };
+                    var filename = 'plan_' + Now() + '.' + 'png';
+                    saveFile(dataUrl, filename);
+                }
+            });
+            function Now() {
+                var myDate = new Date();
+                var year = myDate.getFullYear();
+                var month = myDate.getMonth() + 1;
+                var date = myDate.getDate();
+                var now = year + "" + month + "" + date;
+                return now;
+            }
+        },
+        showQRCode: function (event) {
         }
     }
 });
