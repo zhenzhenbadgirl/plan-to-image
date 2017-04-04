@@ -4,15 +4,12 @@
         "**/*.css": {
              "when": "$(basename).scss"
          },
-         "**/*.js": {
-             "when": "$(basename).ts"
-         },
-        "**/**.js": {
-            "when": "$(basename).tsx"
-        },
-        "**/**.js": {
-            "when": "$(basename).tsx"
-        }
+        //  "**/*.js": {
+        //      "when": "$(basename).ts"
+        //  },
+        // "**/**.js": {
+        //     "when": "$(basename).tsx"
+        // }
     },
     "search.exclude": {
     "**/node_modules": true

@@ -17,9 +17,7 @@ var table = new Vue({
                 Circulation: 3,
                 Unit: "个"
             };
-            this.actionData.push(newAction);
-
-            // swal("hi","","info"); //为什么?
+            this.actionData.push(newAction);            
         },
         addDescribeRows: function () {
             $(".plan-describe").show();
@@ -65,8 +63,7 @@ var table = new Vue({
             $(".watermark").toggle();
         },
         exportImgToPng: function () {
-            let type = "png";
-            let imgData = canvas.toDataURL(type);
+        //    $('#table').tableExport({type:'png',escape:'false'});
         },
     }
 })

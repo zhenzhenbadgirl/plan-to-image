@@ -8,7 +8,7 @@
     <title>一键导出计划</title>
     <link rel="stylesheet" href="files/normalize.css">
     <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" type="text/css" href="node_modules/dist/sweetalert.css">
+    <link rel="stylesheet" type="text/css" href="node_modules/sweetalert/dist/sweetalert.css">
 </head>
 
 <body>
@@ -20,12 +20,13 @@
             <button v-on:click="addCautionRows">加行注意</button><br/>
             <button v-on:click="cutCautionRows">减行注意</button><br/>
             <button v-on:click="showWatermake">显示水印</button><br/>
-            <button v-on:click="exportImgToPng">导出图片</button><br/>
+            <button v-on:click="exportImgToPng"><a href="" id="down_button">导出图片</a></button>
         </div>
         <div class="view-content">
-            <div class="export-area">
+            <!--<canvas id="getit">-->
+            <div class="export-area" id="canv">
                 <div class="watermark"></div>
-                <table border="1">
+                <table border="1" id="table">
                     <tr class="table-title">
                         <td colspan="4"><input type="text" placeholder="请输入计划名称" value="居家腹肌养成计划"></td>
                     </tr>
@@ -34,7 +35,7 @@
                     </tr>
                     <tr bgcolor="blue" class="table-head" cellpadding="5">
                         <th width="40%"><input type="text" value="动 作"></th>
-                        <th width="30%" colspan="2"><input type="text" value="次数/时间" ></th>
+                        <th width="30%" colspan="2"><input type="text" value="次数/时间"></th>
                         <th width="30%"><input type="text" value="组 数"></th>
                     </tr>
                     <tr class="table-body" v-for="(index, item) in actionData">
@@ -57,15 +58,58 @@
                     </div>
                 </div>
             </div>
+            <!--</canvas>-->
             <img src="images/example.png" alt="example" width="640" style="margin-top: 20px;">
-        </div>
-    </div>
-    <!--引入必须的js-->
-    <script src="node_modules\sweetalert\dist\sweetalert.min.js"></script>
-    <script src="node_modules\jquery\dist\jquery.min.js"></script>
-    <script src="node_modules\vue\dist\vue.min.js"></script>
-    
-    <!--引入自己的js-->
-    <script src="index.js"></script>
+</div>
+</div>
+<!--引入必须的js-->
+<script src="node_modules\sweetalert\dist\sweetalert.min.js"></script>
+<script src="node_modules\jquery\dist\jquery.min.js"></script>
+<script src="node_modules\vue\dist\vue.min.js"></script>
+<script src="http://html2canvas.hertzen.com/build/html2canvas.js"></script>
+<!--<script src="files\html2canvas.js"></script>
+<script src="files\jquery.base64.js"></script>
+<script src="files\tableExport.js"></script>-->
+<!--引入自己的js-->
+<script src="index.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#down_button").on("click", function (event) {
+            event.preventDefault();
+            html2canvas($("#canv"), {
+                allowTaint: true,
+                taintTest: false,
+                onrendered: function (canvas) {
+                    //这里的canvas就是页面中生成的<canvas>元素
+                    //生成base64图片数据  
+                    var dataUrl = canvas.toDataURL();
+
+                    var saveFile = function (data, filename) {
+                        var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+                        save_link.href = data;
+                        save_link.download = filename;
+
+                        var event = document.createEvent('MouseEvents');
+                        event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+                        save_link.dispatchEvent(event);
+                    };
+                    var filename = 'plan_' + Now() + '.' + 'png';
+                    // download
+                    saveFile(dataUrl, filename);
+                }
+            });
+        });
+        let Now = function () {
+            var myDate = new Date();
+            let year = myDate.getFullYear();
+            let month = myDate.getMonth() + 1;
+            let date = myDate.getDate();
+            let now = year + "" + month + "" + date;
+            return now;
+        }
+    }); 
+</script>
 </body>
+
 </html>
